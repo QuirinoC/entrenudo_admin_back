@@ -2,8 +2,6 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -12,9 +10,14 @@ app.use(bodyParser.json());
 var mongoose = require('mongoose');
 const { Schema } = mongoose;
 //const DB_URL = "mongodb+srv://mongodb-stitch-something-suzft:<password>@cluster0-bspcz.mongodb.net/entrenudo_admin?retryWrites=true&w=majority";
-const DB_URL = "mongodb://admin:admin1234@ds127936.mlab.com:27936/entrenudo_admin"
+const uri = "mongodb+srv://admin:admin123@entrenudo.bspcz.mongodb.net/entrenudo_admin?retryWrites=true&w=majority"
 const LOCAL = 'mongodb://localhost:27017/entrenudo_admin'
-mongoose.createConnection(DB_URL, { useNewUrlParser: true });
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000
+}).catch(err => console.log(err.reason));
 
 
 const Order = mongoose.model('Order', new Schema({

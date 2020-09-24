@@ -11,8 +11,10 @@ app.use(bodyParser.json());
 // TODO: Replace with production string using env variables
 var mongoose = require('mongoose');
 const { Schema } = mongoose;
-const DB_URL = "mongodb+srv://mongodb-stitch-something-suzft:<password>@cluster0-bspcz.mongodb.net/entrenudo_admin?retryWrites=true&w=majority";
-mongoose.connect('mongodb://localhost:27017/entrenudo_admin', { useNewUrlParser: true });
+//const DB_URL = "mongodb+srv://mongodb-stitch-something-suzft:<password>@cluster0-bspcz.mongodb.net/entrenudo_admin?retryWrites=true&w=majority";
+const DB_URL = "mongodb://admin:admin1234@ds127936.mlab.com:27936/entrenudo_admin"
+const LOCAL = 'mongodb://localhost:27017/entrenudo_admin'
+mongoose.createConnection(DB_URL, { useNewUrlParser: true });
 
 
 const Order = mongoose.model('Order', new Schema({

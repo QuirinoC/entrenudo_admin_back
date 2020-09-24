@@ -41,7 +41,6 @@ router.get('/', function (req, res) {
 router.get('/order', async (req, res) => {
     let page = req.query.page || 0;
     let per_page = req.query.per_page || 5;
-    console.log(page, per_page)
     const orders = await Order.find({})
     res.send(orders);
 })

@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 // TODO: Replace with production string using env variables
 var mongoose = require('mongoose');
 const { Schema } = mongoose;
+const DB_URL = "mongodb+srv://mongodb-stitch-something-suzft:<password>@cluster0-bspcz.mongodb.net/entrenudo_admin?retryWrites=true&w=majority";
 mongoose.connect('mongodb://localhost:27017/entrenudo_admin', { useNewUrlParser: true });
 
 
@@ -23,10 +24,6 @@ const Order = mongoose.model('Order', new Schema({
     background_image: String,
 }));
 
-const ord1 = Order.create({
-    "title": "hola raza"
-})
-console.log(ord1)
 
 var port = process.env.PORT || 8080;
 

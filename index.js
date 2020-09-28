@@ -48,7 +48,8 @@ const Order = mongoose.model('Order', new Schema({
     sender: String,
     senderPhone: String,
     price: Number,
-    Date: Date
+    Date: Date,
+    status: String
 }));
 
 var port = process.env.PORT || 8080;

@@ -3,10 +3,13 @@ var app = express();
 var bodyParser = require('body-parser');
 let http = require('http')
 let fs = require('fs');
+var cors = require('cors')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+app.use(cors())
 
 // DB Connection
 // TODO: Replace with production string using env variables

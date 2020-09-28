@@ -48,7 +48,7 @@ const Order = mongoose.model('Order', new Schema({
     sender: String,
     senderPhone: String,
     price: Number,
-    Date: Date,
+    date: Date,
     status: String
 }));
 

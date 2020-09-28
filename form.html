@@ -1,0 +1,26 @@
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<form action="/api/order" method='post'>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" name='title' class="form-control" id="title" required>
+
+    <label for="body">Body</label>
+    <input type="text" name='body' class="form-control" id="body" required>
+
+    <label for="from">From</label>
+    <input type="text" name='from' class="form-control" id="from" required>
+
+    <label for="to">To</label>
+    <input type="text" name='to' class="form-control" id="to" required>
+
+    <label for="background_image">Background Image</label>
+    <input type="text" name='background_image' class="form-control" id="background_image" required>
+  
+    
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+</html>

@@ -71,9 +71,16 @@ router.post('/order', async(req, res) => {
         req.body
     );
     await order.save();
-    const s3_image_url = (await storeImage(req.body.messageImage, order._id)).Location;
-    order.messageImage = s3_image_url;
-    await order.save();
+
+    let s3_image_url = ""
+    try {
+        s3_image_url = (await storeImage(req.body.messageImage, order._id)).Location;
+        order.messageImage = s3_image_url;
+        await order.save();
+    } catch (err) {
+        console.log(err)
+    }
+
     res.send({
         id: order._id,
         imageStored: s3_image_url

@@ -5,6 +5,21 @@ let http = require('http')
 let fs = require('fs');
 var cors = require('cors')
 
+// AWS
+var AWS = require('aws-sdk');
+
+// Enter copied or downloaded access ID and secret key here
+const ID = process.env.AWS_ACCESS_KEY_ID || '';
+const SECRET = process.env.AWS_SECRET_ACCESS_KEY || '';
+
+// The name of the bucket that you have created
+const BUCKET_NAME = 'entrenudo-bucket';
+
+const s3 = new AWS.S3({
+    accessKeyId: ID,
+    secretAccessKey: SECRET
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -32,7 +47,8 @@ const Order = mongoose.model('Order', new Schema({
     messageImage: String,
     sender: String,
     senderPhone: String,
-    price: Number
+    price: Number,
+    Date: Date
 }));
 
 var port = process.env.PORT || 8080;
@@ -50,13 +66,38 @@ router.get('/order', async(req, res) => {
     res.send(orders);
 })
 router.post('/order', async(req, res) => {
-    console.log(req.body)
+    req.body['Date'] = Date.now();
     const order = new Order(
         req.body
     );
     await order.save();
-    res.send(order);
+    order.messageImage = order._id;
+    await order.save();
+    const imageStored = await storeImage(req.body.messageImage, order._id);
+    res.send({
+        id: order._id,
+        imageStored: imageStored
+    });
 })
+
+async function storeImage(image, id) {
+    const params = {
+        Bucket: BUCKET_NAME,
+        ACL: 'public-read',
+        Key: `${id}.jpg`,
+        Body: Buffer.from(image.replace(/^data:image\/\w+;base64,/, ""), 'base64'),
+        ContentEncoding: 'base64',
+        ContentType: 'image/jpeg'
+    };
+
+    return await s3.upload(params, async function(err, data) {
+        if (err) {
+            console.log("Error uploading image");
+            console.log(err)
+        }
+        console.log(`File uploaded successfully. ${data}`);
+    }).promise();
+}
 
 router.get('/details', async(req, res) => {
     const from = req.query.from || "";
@@ -71,6 +112,10 @@ router.get('/details', async(req, res) => {
         res.end();
     });
 })
+
+router.post('/upload_image', async(req, res) => {
+
+});
 
 app.use('/api', router);
 

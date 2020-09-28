@@ -25,16 +25,15 @@ mongoose.connect(uri, {
     serverSelectionTimeoutMS: 5000
 }).catch(err => console.log(err.reason));
 
-
 const Order = mongoose.model('Order', new Schema({
-    title: String,
-    body: String,
-    from: String,
-    to: String,
-    date: Date,
-    background_image: String,
+    colorPalette: String,
+    size: String,
+    style: String,
+    messageImage: String,
+    sender: String,
+    senderPhone: String,
+    price: Number
 }));
-
 
 var port = process.env.PORT || 8080;
 
@@ -56,7 +55,7 @@ router.post('/order', async(req, res) => {
         req.body
     );
     await order.save();
-    res.redirect('https://google.com');
+    res.send(order);
 })
 
 router.get('/details', async(req, res) => {

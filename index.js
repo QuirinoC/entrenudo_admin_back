@@ -57,8 +57,17 @@ router.post('/order', async(req, res) => {
 })
 
 router.get('/details', async(req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' })
-    fs.createReadStream('form.html').pipe(res)
+    const from = req.query.from || "";
+    const to = req.query.to || "";
+    const product = req.query.product || "";
+    fs.readFile('form.html', 'utf-8', function(err, data) {
+        res.writeHead(200, { 'Content-Type': 'text/html', 'Content-Length': data.length });
+        data = data.replace('PRODUCT', product)
+        data = data.replace('FROM', from)
+        data = data.replace('TO', to)
+        res.write(data);
+        res.end();
+    });
 })
 
 app.use('/api', router);

@@ -1,26 +1,58 @@
 <html>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<form action="/api/order" method='post'>
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" name='title' class="form-control" id="title" required>
+<style>
+#box {
+  position: absolute;
+  left: 25%;
+  width: 500px;
+  height: 20px;
+}
+form {
+  display: inline-block;
+}
+</style>
+<body>
+<h1> Entrenudo </h1>
 
-    <label for="body">Body</label>
-    <input type="text" name='body' class="form-control" id="body" required>
+<div id="box">
+  <h4> FROM, tu pedido para TO esta casi completo, personaliza tu mensaje </h4>
 
-    <label for="from">From</label>
-    <input type="text" name='from' class="form-control" id="from" required>
 
-    <label for="to">To</label>
-    <input type="text" name='to' class="form-control" id="to" required>
+  <form action="/api/order" method='post'>
+    <div class="form-group">
+      <label for="title">Titulo de tu mensaje</label>
+      <input type="text" name='title' class="form-control" id="title" required>
 
-    <label for="background_image">Background Image</label>
-    <input type="text" name='background_image' class="form-control" id="background_image" required>
-  
+      <label for="body">Contenido del mensaje</label>
+      <input type="text" name='body' class="form-control" id="body" required>
+
+      <!--
+      <label for="from">From</label>
+      -->
+      <input type="text" name='from' class="form-control" id="from" required readonly hidden>
+
+      <!--
+      <label for="to">To</label>
+      -->
+      <input type="text" name='to' class="form-control" id="to" required readonly hidden>
+
+      <!--
+      <label for="background_image">Background Image</label>
+      -->
+      <input type="text" name='background_image' class="form-control" id="background_image" required hidden>
     
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+      <input id="product" name="product" value="" hidden>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+</body>
+<script type="text/javascript">
+document.getElementById("product").value = "PRODUCT";
+document.getElementById("from").value = "FROM";
+document.getElementById("to").value = "TO";
+
+</script>
 
 </html>

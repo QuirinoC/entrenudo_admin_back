@@ -34,7 +34,7 @@ const { Schema } = mongoose;
 const uri = "mongodb://admin:admin123@ds127936.mlab.com:27936/entrenudo"
 const LOCAL = 'mongodb://localhost:27017/entrenudo_admin'
 
-mongoose.connect(uri, {
+mongoose.connect(LOCAL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000
@@ -127,7 +127,7 @@ router.get('/details', async(req, res) => {
 })
 
 router.post('/upload_image', async(req, res) => {
-
+    res.send({})
 });
 
 app.use('/api', router);
